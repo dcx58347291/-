@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+	
+		<!-- 定义用户自定义拦截器 -->
+		<interceptors>
+			<interceptor name="logInterceptor" class="interceptor.BookInterceptor"/>
+		</interceptors>
+		
+	
+		<action name="loginAction" class="action.LogAction" method="login">
+			<result name="success">/Book.jsp</result>
+			<result name="input">/log.jsp</result>
+		</action> 
+		
+		<action name="regLoginAction" class="action.RegLoginAction" method="regist">
+			<result name="success">/page/registSuccess.jsp</result>
+			<result name="input">/log.jsp</result>
+		</action> 
+		
+		<action name="bookAction" class="action.BookAction">
+			<!-- 使用引用登录拦截器 -->
+			<interceptor-ref name="logInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
+			<result name="success">/page/ShowTickets.jsp</result>
+			<result name="input">/Book.jsp</result>
+			<result name="login">log.jsp</result>
+		</action> 
+		
+		
+		
+	</package>
+</struts>
